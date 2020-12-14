@@ -32,7 +32,9 @@ namespace pipelines_dotnet_core
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            // turn off Endpoint routing to use MVC routing instead
+            // https://github.com/dotnet/aspnetcore/issues/9542
+            // https://devblogs.microsoft.com/aspnet/asp-net-core-updates-in-net-core-3-0-preview-4/
             services.AddMvc(option => option.EnableEndpointRouting = false);
         }
 
@@ -54,6 +56,9 @@ namespace pipelines_dotnet_core
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            // Using pre .Net Core 3.0 MVC routing instead of Endpoint routing (.Net core >= 3.0)
+            // https://github.com/dotnet/aspnetcore/issues/9542
+            // https://devblogs.microsoft.com/aspnet/asp-net-core-updates-in-net-core-3-0-preview-4/
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
